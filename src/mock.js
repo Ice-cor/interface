@@ -56,7 +56,7 @@ let data = [{
   sold: 1000,
   publishTime: "2017-08-15 12:00",
   lowerTime: "2017-10-15 12:00",
-  isShow: 1
+  isShow: 0
 }, ]
 
 export default data

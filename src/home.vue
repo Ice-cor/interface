@@ -8,7 +8,7 @@
       </span>
     </el-dialog>
 
-    <el-table :data="tableData" stripe style="width: 100%" type='index'>
+    <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column prop="name" label="商品名称" width="180">
       </el-table-column>
       <el-table-column prop="type" label="商品来源" width="180">
@@ -26,8 +26,15 @@
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button @click="toListInfo" type="text" size="small">查看详情</el-button>
-          <el-button type="text" size="small">发布</el-button>
-          <el-button type="text" size="small">隐藏</el-button>
+
+          <el-button type="text" size="small" 
+          :v-model="tableData[scope.$index].isShow = 1" 
+          :class="{active: btnStyle}" 
+          @click="test(scope.$index,1)">发布</el-button>
+          <el-button type="text" size="small" 
+          :v-model="tableData[scope.$index].isShow = 0" 
+          :class="{active: !btnStyle}" 
+          @click="test(scope.$index,0)" class="active">隐藏</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -57,7 +64,8 @@ export default {
         }
       ],
       dialogVisible: false,
-      token: ""
+      token: "",
+      btnStyle: true
     };
   },
   created: function() {
@@ -68,11 +76,6 @@ export default {
       e.status = this.changeText([e.status, statusArr.length, statusArr]);
       return e;
     });
-    // this.selectType;
-    // console.log(this.tableData)
-  },
-  computed: {
-
   },
   methods: {
     handleClose(done) {
@@ -137,7 +140,7 @@ export default {
           lowerTime: "2017-10-15 12:00",
           isShow: 1
         });
-      }else{
+      } else {
         this.tableData.push({
           id: "",
           status: 2,
@@ -151,7 +154,11 @@ export default {
           isShow: 1
         });
       }
-      this.dialogVisible=false
+      this.dialogVisible = false;
+    },
+    test(n,i) {
+      this.tableData[n].isShow = i
+      console.log(n,this.tableData[n].isShow)
     }
   }
 };
@@ -166,5 +173,11 @@ export default {
 }
 .btns {
   margin: 0 auto;
+}
+.active {
+  color: black;
+}
+#home .el-dialog__body {
+  text-align: center;
 }
 </style>
