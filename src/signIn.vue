@@ -55,7 +55,7 @@ export default {
         
           window.localStorage.setItem('token',token)
           // console.log(res);
-          // document.cookie
+          document.cookie = `token=${token}`
           this.$router.push({
             path: '/',
             })
