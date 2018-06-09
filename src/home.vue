@@ -3,12 +3,12 @@
     <el-button @click="dialogVisible = true">新增</el-button>
     <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose" center>
       <span class="btns">
-        <el-button type="primary" @click="dialogVisible=false">预售</el-button>
-        <el-button type="primary" @click="dialogVisible = false">直采</el-button>
+        <el-button type="primary" @click="addList(0)">预售</el-button>
+        <el-button type="primary" @click="addList(1)">直采</el-button>
       </span>
     </el-dialog>
 
-    <el-table :data="tableData" stripe style="width: 100%">
+    <el-table :data="tableData" stripe style="width: 100%" type='index'>
       <el-table-column prop="name" label="商品名称" width="180">
       </el-table-column>
       <el-table-column prop="type" label="商品来源" width="180">
@@ -61,43 +61,18 @@ export default {
     };
   },
   created: function() {
-    this.tableData = mockData.map(function(e, index) {
+    this.tableData = mockData.map(e => {
+      let typeArr = ["平台自营", "转卖", "预售"];
+      let statusArr = ["未发布", "预上架", "销售中"];
+      e.type = this.changeText([e.type, typeArr.length, typeArr]);
+      e.status = this.changeText([e.status, statusArr.length, statusArr]);
       return e;
     });
-    this.selectType;
+    // this.selectType;
     // console.log(this.tableData)
   },
   computed: {
-    selectType() {
-      this.tableData.forEach(e => {
-        switch (e.type) {
-          case 1:
-            e.type = "平台自营";
-            break;
-          case 2:
-            e.type = "转卖";
-            break;
-          case 3:
-            e.type = "预售";
-        }
-        switch (e.status) {
-          case 1:
-            e.type = "未发布";
-            break;
-          case 2:
-            e.type = "预上线";
-            break;
-          case 3:
-            e.type = "销售中";
-        }
 
-        // if (e.status === 1) {
-        //   e.status = "未发布";
-        // } else if (e.status === 2) {
-        //   e.status = "预上线";
-        // }
-      });
-    }
   },
   methods: {
     handleClose(done) {
@@ -140,6 +115,43 @@ export default {
         alert("fail");
         e.currentTarget.remove(); //清除script标签
       };
+    },
+    changeText([name, n, arr]) {
+      for (let i = 1; i < n + 1; i++) {
+        if (name === i) {
+          return arr[i - 1];
+        }
+      }
+    },
+    addList(n) {
+      if (n === 0) {
+        this.tableData.push({
+          id: "",
+          status: 2,
+          type: 3,
+          date: "2016-05-02",
+          name: "人参",
+          stock: 1000,
+          sold: 1000,
+          publishTime: "2017-08-15 12:00",
+          lowerTime: "2017-10-15 12:00",
+          isShow: 1
+        });
+      }else{
+        this.tableData.push({
+          id: "",
+          status: 2,
+          type: 1,
+          date: "2016-05-02",
+          name: "人参",
+          stock: 1000,
+          sold: 1000,
+          publishTime: "2017-08-15 12:00",
+          lowerTime: "2017-10-15 12:00",
+          isShow: 1
+        });
+      }
+      this.dialogVisible=false
     }
   }
 };

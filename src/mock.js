@@ -37,7 +37,7 @@ let data = [{
 {
   id: "",
   status: 2,
-  type: 1,
+  type: 3,
   date: "2016-05-02",
   name: "人参",
   stock: 1000,
@@ -48,8 +48,8 @@ let data = [{
 }, 
 {
   id: "",
-  status: 2,
-  type: 1,
+  status: 1,
+  type: 2,
   date: "2016-05-02",
   name: "人参",
   stock: 1000,
