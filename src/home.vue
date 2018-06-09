@@ -31,6 +31,7 @@
         </template>
       </el-table-column>
     </el-table>
+     <button @click="fetch">请求数据</button>
   </div>
 </template>
 
@@ -55,7 +56,8 @@ export default {
           isShow: ""
         }
       ],
-      dialogVisible: false
+      dialogVisible: false,
+      token: '',
     };
   },
   methods: {
@@ -69,6 +71,19 @@ export default {
     toListInfo(){
       this.dialogVisible =  false
       this.$router.push({ path: "/listinfo" });
+    },
+     fetch(){
+       let token = localStorage.getItem('token')
+       console.log(token)
+      //  this.$axios.defaults.headers.common['token'] = token;
+
+       this.$axios.get("http://back.nmbjvip.com/api/mall/goods/list").then(
+        res => {
+          console.log(res)
+        },
+        error => {
+          console.log(error);
+        })
     }
   }
 };
@@ -79,9 +94,7 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
-  // display: flex;
-  // flex-direction: column;
+  width: 100%;
 }
 .btns{
   margin: 0 auto;

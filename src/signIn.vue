@@ -21,7 +21,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -40,22 +39,31 @@ export default {
     },
     submitForm2() {
       let password = this.$md5(this.formDate2.password);
-      // let json = {password: password,userName:this.formDate2.userName}
+      let json = { password: password, userName: this.formDate2.userName };
 
-      let json = JSON.stringify({
-        password: password,
-        userName: this.formDate2.userName
-      });
-      console.log(json, "json");
-      this.$axios.defaults.headers.post['Content-Type'] = 'application/json';
-      this.$axios.post('/api/api/user/admin/adminLogin', {
-          "userName": this.formDate2.userName,
-          "password": password
-        }).then(res => {
-          console.log(res);
-        })
-
-    
+      // let json = JSON.stringify({
+      //   password: password,
+      //   userName: this.formDate2.userName
+      // });
+      
+      this.$axios.post("/api/api/user/admin/adminLogin", json).then(
+        res => {
+          let token = res.data.data.token;
+          // this.$axios.defaults.headers.post["token"] = token;
+          console.log(token);
+          //  this.$axios.defaults.headers.common['token'] = token;
+        
+          window.localStorage.setItem('token',token)
+          // console.log(res);
+          // document.cookie
+          this.$router.push({
+            path: '/',
+            })
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
   }
 };
