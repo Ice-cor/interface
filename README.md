@@ -1,22 +1,13 @@
 # interface
 
-> A Vue.js project
+## bug遗留
 
-## Build Setup
+1.发布按钮切换
+2.radio不正常，需仔细看下文档
+3.设置请求头后token还是无法获取，参数500，需同后端联调
 
-``` bash
-# install dependencies
-npm install
+## 其他
+1.ui样式需修改
+2.权限功能还未完成
+3.由于无法获取后端数据，接口对接还未完成
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-"# interface" 
